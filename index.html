@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WELCOME TO TCM</title>
+    <style>
+        :root {
+            --bg-color: #0f0c1b;
+            --container-bg: #161224;
+            --accent-purple: #9b5de5;
+            --text-main: #f4f4f9;
+            --text-muted: #a0a0b8;
+            --border-color: #2a2447;
+            --tab-hover: #f15bb5;
+            --neon-green: #00f5d4;
+            --neon-yellow: #fee440;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 250px 250px;
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--container-bg);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border-color);
+            margin-top: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 25px;
+            gap: 5px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-button:hover {
+            color: var(--tab-hover);
+        }
+
+        .tab-button.active {
+            color: var(--accent-purple);
+            border-bottom: 3px solid var(--accent-purple);
+            text-shadow: 0 0 10px rgba(155, 93, 229, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: tabFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .tab-content h3 {
+            color: var(--tab-hover);
+            margin-top: 0;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-left: 3px solid var(--tab-hover);
+            padding-left: 10px;
+        }
+
+        .tab-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0 0 14px 0;
+            color: #e2e2ec;
+            position: relative;
+            padding-left: 22px;
+        }
+
+        .tab-content p::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-size: 12px;
+            top: 1px;
+        }
+        
+        .tab-content p.no-bullet::before {
+            display: none;
+        }
+        
+        .tab-content p.no-bullet {
+            padding-left: 0;
+        }
+
+        .component-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .component-list {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                justify-content: flex-start;
+            }
+        }
+
+        .component-item {
+            background: rgba(155, 93, 229, 0.05);
+            border: 1px solid rgba(155, 93, 229, 0.15);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .component-item span {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 10px rgba(155, 93, 229, 0.4), 0 0 20px rgba(155, 93, 229, 0.2);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(241, 91, 181, 0.8), 0 0 30px rgba(155, 93, 229, 0.6);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Language Toggle Button at the top of the body -->
+    <div style="text-align: right; width: 100%; max-width: 750px; margin: 0 auto; padding-bottom: 10px;">
+        <button onclick="
+            var isEn = this.innerText.includes('KH');
+            if (isEn) {
+                document.querySelectorAll('.lang-en').forEach(el => el.style.setProperty('display', 'none'));
+                document.querySelectorAll('.lang-km').forEach(el => {
+                    if(el.tagName === 'BUTTON' || el.classList.contains('component-item')) {
+                        el.style.setProperty('display', 'inline-block');
+                    } else {
+                        el.style.setProperty('display', 'block');
+                    }
+                });
+                this.innerHTML = 'ENGLISH';
+            } else {
+                document.querySelectorAll('.lang-km').forEach(el => el.style.setProperty('display', 'none'));
+                document.querySelectorAll('.lang-en').forEach(el => {
+                    if(el.tagName === 'BUTTON' || el.classList.contains('component-item')) {
+                        el.style.setProperty('display', 'inline-block');
+                    } else {
+                        el.style.setProperty('display', 'block');
+                    }
+                });
+                this.innerHTML = 'KHMER';
+            }
+        " style="padding: 6px 12px; background-color: #2a2447; color: white; border: 1px solid #9b5de5; border-radius: 20px; cursor: pointer; font-family: 'Segoe UI', sans-serif; font-weight: bold; font-size: 14px; box-shadow: 0 0 10px rgba(155, 93, 229, 0.3); position: relative; z-index: 9999;">
+            KHMER
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- English Header Title -->
+        <h1 class="lang-en">WELCOME TO TCM</h1>
+        <!-- Khmer Header Title -->
+        <h1 class="lang-km" style="display: none;">សូមស្វាគមន៍មកកាន់ TCM</h1>
+
+        <div class="tabs">
+            <!-- Button 1: WHAT IS TCM (Active by default) -->
+            <button class="tab-button active lang-en" onclick="openTab(event, 'tab-WHAT-IS-TCM')">What Is TCM</button>
+            <button class="tab-button active lang-km" onclick="openTab(event, 'tab-WHAT-IS-TCM')" style="display: none;">តើអ្វីទៅជា TCM?</button>
+
+            <!-- Button 2: HOW TO USE -->
+            <button class="tab-button lang-en" onclick="openTab(event, 'tab-HOW-TO-USE-TCM')">HOW TO USE</button>
+            <button class="tab-button lang-km" onclick="openTab(event, 'tab-HOW-TO-USE-TCM')" style="display: none;">របៀបប្រើប្រាស់</button>
+
+            <!-- Button 3: WHAT NOT TO PUT -->
+            <button class="tab-button lang-en" onclick="openTab(event, 'tab-WHAT-NOT-TO-PUT')">WHAT NOT TO PUT</button>
+            <button class="tab-button lang-km" onclick="openTab(event, 'tab-WHAT-NOT-TO-PUT')" style="display: none;">របស់ហាមដាក់</button>
+
+            <!-- Button 4: HOW TO MIX SOIL -->
+            <button class="tab-button lang-en" onclick="openTab(event, 'tab-HOW-TO-MIX-SOIL')">HOW TO MIX SOIL</button>
+            <button class="tab-button lang-km" onclick="openTab(event, 'tab-HOW-TO-MIX-SOIL')" style="display: none;">ការលាយដី</button>
+        </div>
+      
+      <!-- TAB 1: WHAT IS TCM -->
+<div id="tab-WHAT-IS-TCM" class="tab-content active">
+    <!-- Paragraph 1 -->
+    <p class="no-bullet lang-en"><strong>The Composting Machine (TCM)</strong> is an automated, smart micro-reactor designed to shrink organic waste by up to 80% and convert it into rich pre-compost in just 3 to 5 days.</p>
+    <p class="no-bullet lang-km" style="display: none;"><strong>ម៉ាស៊ីនធ្វើជីកំប៉ុស (TCM)</strong> គឺជាឧបករណ៍មីក្រូរេអាក់ទ័រវៃឆ្លាតដែលត្រូវបានរចនាឡើងដើម្បីកាត់បន្ថយសំណល់សរីរាង្គទះរហូតដល់ ៨០% និងបំប្លែងវាទៅជាជីកំប៉ុសក្នុងរយៈពេលត្រឹមតែ ៣ ទៅ ៥ ថ្ងៃប៉ុណ្ណោះ។</p>
+    
+    <!-- Paragraph 2 -->
+    <p class="no-bullet lang-en">Traditional backyard composting is slow, messy, and can take up to three-six months to produce results. TCM revolutionizes this process by combining mechanical shredding, thermal climate control, and smart sensor automation inside a compact, countertop-friendly design.</p>
+    <p class="no-bullet lang-km" style="display: none;">ការធ្វើជីកំប៉ុសនៅផ្ទះតាមបែបបុរាណគឺមានភាពយឺតយ៉ាវ រញ៉េរញ៉ៃ និងអាចចំណាយពេលរហូតដល់បី ទៅប្រាំមួយខែដើម្បីទទួលបានលទ្ធផល។ TCM ធ្វើបដិវត្តន៍ដំណើរការនេះ ដោយរួមបញ្ចូលគ្នានូវការកិនកម្ទេចមេកានិច ការគ្រប់គ្រងសីតុណ្ហភាពកម្ដៅ និងស្វ័យប្រវត្តិកម្មសេនស័រវៃឆ្លាត នៅក្នុងទម្រង់រចនាបថតូច បង្រួម សមស្របសម្រាប់ដាក់លើតុផ្ទះបាយ។</p>
+    
+    <!-- List Heading -->
+    <h3 style="margin-top: 25px;" class="lang-en">System Material Suite (12 Core Elements)</h3>
+    <h3 style="margin-top: 25px; display: none;" class="lang-km">គ្រឿងបង្គំប្រព័ន្ធស្នូល (ធាតុសំខាន់ៗទាំង ១២)</h3>
+    
+    <div class="component-list">
+        <!-- Element 1 -->
+        <div class="component-item lang-en"><span>01.</span> MQ-135 Gas Sensor</div>
+        <div class="component-item lang-km" style="display: none;"><span>01.</span> សេនស័រវាស់ឧស្ម័ន MQ-135</div>
+
+        <!-- Element 2 -->
+        <div class="component-item lang-en"><span>02.</span> ESP-32 Dev Board</div>
+        <div class="component-item lang-km" style="display: none;"><span>02.</span> បន្ទះសៀគ្វី ESP-32 Dev Board</div>
+
+        <!-- Element 3 -->
+        <div class="component-item lang-en"><span>03.</span> DHT22 Temp/Humidity</div>
+        <div class="component-item lang-km" style="display: none;"><span>03.</span> សេនស័រវាស់សីតុណ្ហភាព/សំណើម DHT22</div>
+
+        <!-- Element 4 -->
+        <div class="component-item lang-en"><span>04.</span> Yellow LCD Screen</div>
+        <div class="component-item lang-km" style="display: none;"><span>04.</span> អេក្រង់ LCD ពណ៌លឿង</div>
+
+        <!-- Element 5 -->
+        <div class="component-item lang-en"><span>05.</span> DC Drive Motor</div>
+        <div class="component-item lang-km" style="display: none;"><span>05.</span> ម៉ូទ័រទាញចរន្តជាប់ (DC Drive Motor)</div>
+
+        <!-- Element 6 -->
+        <div class="component-item lang-en"><span>06.</span> Blender Blade Assembly</div>
+        <div class="component-item lang-km" style="display: none;"><span>06.</span> បង្គំផ្លែឡាមកិនកម្ទេច</div>
+
+        <!-- Element 7 -->
+        <div class="component-item lang-en"><span>07.</span> Wires (ខ្សែ តភ្លើង)</div>
+        <div class="component-item lang-km" style="display: none;"><span>07.</span> ខ្សែកាបតភ្ជាប់ចរន្ត (ខ្សែតភ្លើង)</div>
+
+        <!-- Element 8 -->
+        <div class="component-item lang-en"><span>08.</span> Power Supply (ដុំភ្លើង)</div>
+        <div class="component-item lang-km" style="display: none;"><span>08.</span> ប្រភពផ្គត់ផ្គង់ថាមពល (ដុំភ្លើង)</div>
+
+        <!-- Element 9 -->
+        <div class="component-item lang-en"><span>09.</span> Step-Down Converter</div>
+        <div class="component-item lang-km" style="display: none;"><span>09.</span> ឧបករណ៍បញ្ចុះកម្លាំងវ៉ុលភ្លើង (Step-Down Converter)</div>
+
+        <!-- Element 10 -->
+        <div class="component-item lang-en"><span>10.</span> PTC Heater Fan</div>
+        <div class="component-item lang-km" style="display: none;"><span>10.</span> កង្ហារកម្តៅបំពង់ PTC</div>
+
+        <!-- Element 11 -->
+        <div class="component-item lang-en"><span>11.</span> Wood Framing Board</div>
+        <div class="component-item lang-km" style="display: none;"><span>11.</span> បន្ទះក្តារឈើរចនាសម្ព័ន្ធក្រៅ</div>
+
+        <!-- Element 12 -->
+        <div class="component-item lang-en"><span>12.</span> Internal Steel Plate</div>
+        <div class="component-item lang-km" style="display: none;"><span>12.</span> ផ្ទាំងសន្លឹកដែកថែបខាងក្នុង</div>
+    </div>
+</div>
+      <!-- TAB 2: HOW TO USE TCM -->
+<div id="tab-HOW-TO-USE-TCM" class="tab-content">
+    
+    <!-- SECTION 01 -->
+    <div class="component-item lang-en"><span>01.</span> FOR WET & DRY ORGANIC WASTE</div>
+    <div class="component-item lang-km" style="display: none;"><span>01.</span> សម្រាប់កាកសំណល់សរីរាង្គសើម និងស្ងួតលាយគ្នា</div>
+
+    <p class="lang-en">Step 1: Prep & Layer (Day 1). Weigh out 500g of wet waste and 500g of dry carbon matter. Drop 150g of pure dry waste over the blades as a buffer layer, pour the remaining mix on top, and add your sugar-activated EM liquid and a thin soil cap.</p>
+    <p class="lang-km" style="display: none;">ជំហានទី ១៖ ការរៀបចំ និងរៀបជាស្រទាប់ (ថ្ងៃទី ១)។ ថ្លឹងកាកសំណល់សើម ៥០០ក្រាម និងកាកសំណល់ស្ងួត ៥០០ក្រាម។ ចាក់កាកសំណល់ស្ងួតសុទ្ធ ១៥០ក្រាម ពីលើផ្លែឡាមដើម្បីធ្វើជាស្រទាប់ទ្រនាប់ បន្ទាប់មកចាក់ល្បាយដែលនៅសល់ពីលើ ហើយបន្ថែមទឹក EM ដែលបានលាយជាមួយស្ករ និងគ្របពីលើដោយដីស្តើងមួយស្រទាប់។</p>
+
+    <p class="lang-en">Step 2: Initial Shredding. Close the chamber lid, flip the main power connections, and run the motor and blades continuously for 1 to 2 minutes to shred the fibers and maximize the microbial surface area.</p>
+    <p class="lang-km" style="display: none;">ជំហានទី ២៖ ការកិនកម្ទេចដំបូង។ បិទគម្របធុងកំប៉ុស បើកកុងតាក់ប្រភពថាមពលចរន្តអគ្គិសនី ហើយដំណើរការម៉ូទ័រ និងផ្លែឡាមឱ្យវិលជាប់គ្នារយៈពេល ១ ទៅ ២ នាទី ដើម្បីកិនសរសៃកាកសំណល់ឱ្យម៉ដ្ឋ និងពង្រីកផ្ទៃផ្ទុកបាក់តេរីឱ្យបានជាអតិបរមា។</p>
+
+    <p class="lang-en">Step 3: Thermal Activation. Turn on the PTC heater fan. Your ESP-32 will actively monitor the DHT22 temperature sensor to lock the internal micro-reactor chamber into a warm 50°C to 55°C thermophilic zone.</p>
+    <p class="lang-km" style="display: none;">ជំហានទី ៣៖ ការដំណើរការកម្តៅ។ បើកកង្ហារកម្តៅ PTC។ បន្ទះសៀគ្វី ESP-32 នឹងតាមដានសេនស័រវាស់សីតុណ្ហភាព DHT22 យ៉ាងសកម្ម ដើម្បីរក្សាកម្តៅក្នុងធុងមីក្រូរេអាក់ទ័រឱ្យស្ថិតក្នុងរង្វង់សីតុណ្ហភាពក្តៅឧណ្ហៗពី ៥០°C ទៅ ៥៥°C។</p>
+
+    <p class="lang-en">Step 4: Oxygenation Pulses. Keep the heater running, but run the motor blades for just 5 to 10 seconds every 12 hours to agitate the collapsing wet mass, prevent compaction, and introduce vital oxygen pockets.</p>
+    <p class="lang-km" style="display: none;">ជំហានទី ៤៖ ការបន្ថែមអុកស៊ីហ្សែនជាវគ្គៗ។ រក្សាទុកឱ្យឧបករណ៍កម្តៅដំណើរការបន្ត ប៉ុន្តែត្រូវដំណើរការម៉ូទ័រកិនរយៈពេលខ្លីត្រឹម ៥ ទៅ ១០ វិនាទី រៀងរាល់ ១២ ម៉ោងម្តង ដើម្បីកូរល្បាយសើម កុំឱ្យវាកកណែន និងដើម្បីបញ្ចូលខ្យល់អុកស៊ីហ្សែនដ៏សំខាន់ទៅក្នុងល្បាយ។</p>
+
+    <p class="lang-en">Step 5: Telemetry & Harvest (Hour 72). Monitor real-time gas stabilization thresholds on the Yellow LCD via the MQ-135 sensor. At the end of Day 3, power down the unit to extract your concentrated, pathogen-safe organic pre-compost.</p>
+    <p class="lang-km" style="display: none;">ជំហានទី ៥៖ ការពិនិត្យទិន្នន័យ និងប្រមូលផល (ម៉ោងទី ៧២)។ តាមដានកម្រិតលំនឹងឧស្ម័នតាមពេលវេលាជាក់ស្តែងលើអេក្រង់ LCD ពណ៌លឿង តាមរយៈសេនស័រ MQ-135។ នៅចុងបញ្ចប់នៃថ្ងៃទី ៣ ត្រូវបិទថាមពលម៉ាស៊ីន ដើម្បីយកជីកំប៉ុសសរីរាង្គប្រមូលផ្តុំ ដែលមានសុវត្ថិភាពពីមេរោគ។</p>
+
+
+    <!-- SECTION 02 -->
+    <div class="component-item lang-en"><span>02.</span> FOR DRY ORGANIC WASTE</div>
+    <div class="component-item lang-km" style="display: none;"><span>02.</span> សម្រាប់កាកសំណល់សរីរាង្គស្ងួតសុទ្ធ</div>
+
+    <p class="lang-en">• Step 1: Pre-Chop the Pieces. Cut or tear large cardboard or dry leaves down to small 2–3 cm pieces before dropping them into the mesh basket. This protects your blender blades from high-torque mechanical strain and stops the motor from stalling.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ១៖ កាត់កម្ទេចជាបំណែកតូចៗជាមុន។ កាត់ ឬហែកកាតុងធំៗ ឬស្លឹកឈើស្ងួតឱ្យទៅជាបំណែកតូចៗទំហំ ២-៣ សង់ទីម៉ែត្រ មុននឹងដាក់ចូលទៅក្នុងកន្ត្រក جال។ ការធ្វើបែបនេះជួយការពារផ្លែឡាមកិនពីការទាញទម្ងន់ខ្លាំង និងការពារម៉ូទ័រកុំឱ្យគាំងដំណើរការ។</p>
+
+    <p class="lang-en">• Step 2: Wake Up the EM. Mix 1 cup of warm water, 1 capful of your EM substance, and 1 spoonful of sugar. Let it sit for 10 minutes so the sugar can jumpstart the microbes.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ២៖ ដាស់ដំណើរការបាក់តេរី EM។ លាយទឹកក្តៅឧណ្ហៗ ១ កែវ ទឹកមេ EM ១ គម្រប និងស្ករស ១ ស្លាបព្រា។ ទុកចោលរយៈពេល ១០ នាទី ដើម្បីឱ្យជាតិស្ករជួយដាស់មីក្រូសារពាង្គកាយឱ្យសកម្ម។</p>
+
+    <p class="lang-en">• Step 3: The "Damp Sponge" Rule. Pour the sweet EM liquid completely over the dry waste. The material must feel thoroughly wet and damp to the touch, but not soaking in a deep puddle at the bottom.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ៣៖ គោលការណ៍ "ស្ពោតជោកទឹកស្តើង"។ ចាក់ទឹកល្បាយ EM ផ្អែមនោះឱ្យសព្វពីលើកាកសំណល់ស្ងួត។ សម្ភារៈត្រូវតែមានសំណើមជោកល្អនៅពេលប៉ះ ប៉ុន្តែមិនត្រូវឱ្យមានទឹកដក់ជន់ជ្រៅនៅផ្នែកបាតខាងក្រោមនោះទេ។</p>
+
+    <p class="lang-en">• Step 4: Shred for Longer. Close the lid and run the motor blades for 3 to 4 minutes initially (instead of the usual 1 minute). Dry fiber is tough, and blending it longer creates a high surface area for rapid microbial attachment.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ៤៖ កិនឱ្យបានយូរជាងមុន។ បិទគម្រប និងដំណើរការម៉ូទ័រកិនរយៈពេល ៣ ទៅ ៤ នាទីនៅវគ្គដំបូង (ជំនួសឱ្យការកិន ១ នាទីធម្មតា)។ សរសៃស្ងួតគឺមានភាពស្វិត ដូច្នេះការកិនវាឱ្យបានយូរជួយបង្កើតផ្ទៃល្អិតៗបានច្រើន ងាយស្រួលឱ្យបាក់តេរីតោងរុំលឿន។</p>
+
+    <p class="lang-en">• Step 5: Watch the Yellow LCD. Keep the PTC heater fan running, but monitor the DHT22 humidity reading. If the screen shows the humidity dropping below 35% on Day 2 or 3, sprinkle half a cup of water inside to keep the bacteria from drying out and going dormant.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ៥៖ ពិនិត្យអេក្រង់ LCD ពណ៌លឿង។ រក្សាទុកឱ្យកង្ហារកម្តៅ PTC ដំណើរការ ប៉ុន្តែត្រូវតាមដានកម្រិតសំណើម DHT22។ ប្រសិនបើអេក្រង់បង្ហាញថាសំណើមធ្លាក់ចុះក្រោម ៣៥% នៅថ្ងៃទី ២ ឬទី ៣ ត្រូវព្រួសទឹកកន្លះកែវចូលខាងក្នុង ដើម្បីកុំឱ្យបាក់តេរីស្ងួតស្លាប់ ឬឈប់ដំណើរការ។</p>
+
+
+    <!-- SECTION 03 -->
+    <div class="component-item lang-en"><span>03.</span> FOR WET ORGANIC WASTE</div>
+    <div class="component-item lang-km" style="display: none;"><span>03.</span> សម្រាប់កាកសំណល់សរីរាង្គសើមសុទ្ធ</div>
+
+    <p class="lang-en">Because wet waste turns into a heavy, sticky paste, we have to adjust the method to protect the motor from jamming. This will increase the composting time slightly from 3 days to 5 days (120 hours), which is still incredibly fast!</p>
+    <p class="lang-km" style="display: none;">ដោយសារតែកាកសំណល់សើមនឹងប្រែទៅជាល្បាយខាប់ស្អិត និងធ្ងន់ យើងត្រូវកែសម្រួលវិធីសាស្ត្រខ្លះដើម្បីការពារម៉ូទ័រកុំឱ្យគាំង។ ការធ្វើបែបនេះនឹងបង្កើនរយៈពេលធ្វើជីកំប៉ុសបន្តិចបន្តួចពី ៣ ថ្ងៃ ទៅ ៥ ថ្ងៃ (១២០ ម៉ោង) ប៉ុន្តែវានៅតែលឿនរហ័សបំផុត!</p>
+
+    <p class="lang-en">• Step 1: Drain Excess Liquid First. Do not dump pools of liquid into the basket. Tell the user to strain or shake off excess water from the food scraps before loading them.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ១៖ ច្រោះសម្រក់ទឹកដែលលើសចេញជាមុន។ មិនត្រូវចាក់ទឹកដក់ចូលទៅក្នុងកន្ត្រកឡើយ។ ណែនាំឱ្យអ្នកប្រើប្រាស់ពូត ឬរលាស់សម្រក់ទឹកដែលលើសចេញពីកាកសំណល់អាហារ មុននឹងដាក់បញ្ចូលទៅក្នុងម៉ាស៊ីន។</p>
+
+    <p class="lang-en">• Step 2: Add Double Dirt/Soil (The Structural Buffer). Since there is no dry cardboard to absorb moisture, sprinkle 2 full cups of dry dirt directly into the wet waste mix. The dirt acts as a physical barrier that prevents the wet scraps from turning into a single, sticky, motor-stalling mud block.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ២៖ បន្ថែមដីស្ងួតពីរដង (របាំងទប់លំនឹងរចនាសម្ព័ន្ធ)។ ដោយសារតែគ្មានកាតុងស្ងួតដើម្បីស្រូបយកជាតិសំណើម ត្រូវរោយដីស្ងួត ២ កែវពេញ ចូលទៅក្នុងល្បាយកាកសំណល់សើមផ្ទាល់តែម្តង។ ដីដើរតួជារបាំងរូបវន្តដែលការពារកាកសំណល់សើមមិនឱ្យប្រែទៅជាភក់ស្អិតរមួត ដែលនាំឱ្យម៉ូទ័រគាំង។</p>
+
+    <p class="lang-en">• Step 3: Use the "Short Pulse" Shred Method. Do not run the motor for 2 minutes straight. Instead, press the motor switch on and off in 5-second bursts (pulses) for about 1 minute. This chops the wet food safely without allowing a thick slurry to build up high-friction drag around the blender blades.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ៣៖ ប្រើប្រាស់វិធីសាស្ត្រកិន "ចុចលែងៗរយៈពេលខ្លី"។ មិនត្រូវដំណើរការម៉ូទ័រជាប់គ្នារយៈពេល ២ នាទីត្រង់នោះទេ។ ផ្ទុយទៅវិញ ត្រូវចុចបើក និងបិទកុងតាក់ម៉ូទ័រជាវគ្គខ្លីៗម្តង ៥ វិនាទី ក្នុងរយៈពេលសរុបប្រហែល ១ នាទី។ វិធីនេះជួយកិនកម្ទេចអាហារសើមដោយសុវត្ថិភាព ដោយមិនបណ្តាលឱ្យល្បាយខាប់បង្កើតកម្លាំងកកិតខ្លាំងជុំវិញផ្លែឡាមឡើយ។</p>
+
+    <p class="lang-en">• Step 4: Maximize the PTC Heater Fan. Keep the PTC heater fan running continuously via the ESP-32. Wet waste requires maximum thermal energy to evaporate the excess moisture trapping the air gaps.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ៤៖ បង្កើនដំណើរការកង្ហារកម្តៅ PTC ឱ្យអស់លទ្ធភាព។ រក្សាទុកឱ្យកង្ហារកម្តៅ PTC ដំណើរការជាបន្តបន្ទាប់តាមរយៈបន្ទះសៀគ្វី ESP-32។ កាកសំណល់សើមត្រូវការថាមពលកម្ដៅជាអតិបរមា ដើម្បីបំភាយជាតិសំណើមដែលលើសដែលស្ទះចន្លោះខ្យល់ចេញ។</p>
+
+    <p class="lang-en">• Step 5: The 5-Day Maturity Check. Because wet cells take longer to dry out and stabilize, let the machine incubate for 5 days. You will know it is ready when the DHT22 humidity drops below 50% and the wet mass turns into a rich, dark, earthy crumble.</p>
+    <p class="lang-km" style="display: none;">• ជំហានទី ៥៖ ការពិនិត្យភាពមាំមួនរយៈពេល ៥ ថ្ងៃ។ ដោយសារតែកោសិកាសើមត្រូវចំណាយពេលយូរជាងមុនដើម្បីស្ងួត និងមានលំនឹង ត្រូវទុកឱ្យម៉ាស៊ីនដំណើរការបំប្លែងរយៈពេល ៥ ថ្ងៃ។ អ្នកនឹងដឹងថាវាឆ្អិនរួចរាល់នៅពេលសំណើមពី DHT22 ធ្លាក់ចុះក្រោម ៥០% ហើយកាកសំណល់សើមប្រែទៅជាដីធូរ មានពណ៌ក្រម៉ៅស្រស់ និងមានជីវជាតិ។</p>
+
+</div>
+      <!-- TAB 3: WHAT NOT TO PUT -->
+<div id="tab-WHAT-NOT-TO-PUT" class="tab-content">
+        
+    <!-- SECTION 01: MECHANICAL HAZARDS -->
+    <div class="component-item lang-en"><span>01.</span> Absolute Mechanical Hazards (Will Break the Blades or Stall the Motor)</div>
+    <div class="component-item lang-km" style="display: none;"><span>01.</span> គ្រោះថ្នាក់ផ្នែកមេកានិចដាច់ខាត (នឹងធ្វើឱ្យបាក់ផ្លែឡាម ឬគាំងម៉ូទ័រ)</div>
+    
+    <p class="lang-en">•  <strong>Animal Bones & Seafood Shells:</strong> Large chicken, beef, or pork bones, as well as thick clam/oyster shells, will instantly chip or shatter the blender blades.</p>
+    <p class="lang-km" style="display: none;">•  <strong>ឆ្អឹងសត្វ និងសំបកគ្រឿងសមុទ្រ៖</strong> ឆ្អឹងមាន់ ឆ្អឹងគោ ឬឆ្អឹងជ្រូកធំៗ ព្រមទាំងសំបកគ្រែង/លៀសក្រាស់ៗ នឹងធ្វើឱ្យឆាប់ម៉ដ្ឋ ឬបាក់ផ្លែឡាមកិនភ្លាមៗ។</p>
+    
+    <p class="lang-en">•  <strong>Fruit Pits & Hard Seeds:</strong> Large, dense seeds like mango pits, avocado pits, or peach stones act like rocks inside the mesh basket and will jam the rotation immediately.</p>
+    <p class="lang-km" style="display: none;">•  <strong>គ្រាប់ផ្លែឈើ និងគ្រាប់រឹងៗ៖</strong> គ្រាប់ធំៗនិងណែន ដូចជាគ្រាប់ស្វាយ គ្រាប់បឺរ ឬគ្រាប់ផ្លែជលអាក សុទ្ធតែដើរតួដូចជាដុំថ្មនៅក្នុងកន្ត្រកសំណាញ់ ហើយនឹងធ្វើឱ្យគាំងការវិលភ្លាមៗ។</p>
+    
+    <p class="lang-en">•  <strong>Fibrous Strings & Husks:</strong> Whole corn husks, thick lemongrass stalks, or tough pineapple tops contain long, rope-like fibers. These will wrap around the spinning motor shaft, causing high friction that can overheat your wiring.</p>
+    <p class="lang-km" style="display: none;">•  <strong>សរសៃកាកសំណល់ និងសំបក៖</strong> សំបកពោតទាំងមូល គល់ស្លឹកគ្រៃក្រាស់ៗ ឬក្បាលម្នាស់រឹងៗ មានផ្ទុកសរសៃវែងៗដូចខ្សែតី។ សរសៃទាំងនេះនឹងរុំជុំវិញអ័ក្សម៉ូទ័រដែលកំពុងវិល បង្កើតឱ្យមានការកកិតខ្លាំងដែលអាចធ្វើឱ្យឡើងកម្តៅខ្សែភ្លើងរបស់អ្នក។</p>
+    
+    <p class="lang-en">•  <strong>Non-Organic Materials:</strong> Plastic wrappers, metal twist-ties, rubber bands, or fruit stickers. These will dull the blades and contaminate your final compost with microplastics.</p>
+    <p class="lang-km" style="display: none;">•  <strong>សារធាតុមិនមែនសរីរាង្គ៖</strong> ស្រោមផ្លាស្ទិច ខ្សែលួសចង ខ្សែរ ឬស្ទីកគ័រជាប់ផ្លែឈើ។ សារធាតុទាំងនេះនឹងធ្វើឱ្យផ្លែឡាមទាល និងធ្វើឱ្យខូចគុណភាពជីកំប៉ុសចុងក្រោយរបស់អ្នកដោយសារតែមីក្រូផ្លាស្ទិច។</p>
+    
+    <!-- SECTION 02: BIOLOGICAL HAZARDS -->
+    <div class="component-item lang-en"><span>02.</span> Biological Hazards (Will Kill the EM Microbes or Cause Terrible Odors)</div>
+    <div class="component-item lang-km" style="display: none;"><span>02.</span> គ្រោះថ្នាក់ផ្នែកជីវសាស្ត្រ (នឹងសម្លាប់បាក់តេរី EM ឬបង្កឱ្យមានក្លិនស្អុយខ្លាំង)</div>
+    
+    <p class="lang-en">•  <strong>Heavy Dairy & Cooking Oils:</strong> Large amounts of cheese, butter, milk, or cooking grease. While organic, fats coat the waste particles in oil, blocking oxygen. This kills your EM bacteria and turns the chamber into a sour, foul-smelling mess.</p>
+    <p class="lang-km" style="display: none;">•  <strong>ផលិតផលទឹកដោះគោ និងប្រេងឆា៖</strong> ឈីស ប៊ឺ ទឹកដោះគោ ឬខ្លាញ់ចម្អិនអាហារក្នុងបរិមាណច្រើន។ ទោះបីជាវាជាសារធាតុសរីរាង្គក៏ដោយ ប៉ុន្តែជាតិខ្លាញ់នឹងស្រោបភាគល្អិតកាកសំណល់ បិទមិនឱ្យមានអុកស៊ីហ្សែន។ វាសម្លាប់បាក់តេរី EM របស់អ្នក និងធ្វើឱ្យធុងកំប៉ុសមានជាតិជូរ និងធុំក្លិនស្អុយ។</p>
+    
+    <p class="lang-en">•  <strong>Excessive Raw Meat or Feces:</strong> Small scraps are fine, but large chunks of raw meat or pet waste attract harmful pathogens, override your MQ-135 air quality thresholds, and cause severe odors that the dirt filtration layer cannot mask.</p>
+    <p class="lang-km" style="display: none;">•  <strong>សាច់ឆៅ ឬលាមកសត្វច្រើនហួសប្រមាណ៖</strong> កំទេចកំទីតូចៗមិនអីទេ ប៉ុន្តែសាច់ឆៅដុំធំៗ ឬលាមកសត្វចិញ្ចឹម នឹងទាក់ទាញមេរោគបង្កគ្រោះថ្នាក់ ធ្វើឱ្យប៉ះពាល់ដល់កម្រិតវាស់គុណភាពខ្យល់ MQ-135 និងបង្កឱ្យមានក្លិនស្អុយធ្ងន់ធ្ងរដែលស្រទាប់ចម្រោះដីមិនអាចបិទបាំងបាន។</p>
+    
+    <p class="lang-en">•  <strong>Chemically Treated Wood or Paper:</strong> Colored glossy magazines, receipts (thermal paper), or pressure-treated wood shavings. The chemicals and heavy metals will kill off your soil microbes and ruin the fertilizer quality.</p>
+    <p class="lang-km" style="display: none;">•  <strong>ឈើ ឬក្រដាសដែលកែច្នៃដោយសារធាតុគីមី៖</strong> ទស្សនាវដ្តីពណ៌ភ្លឺរលោង វិក្កយបត្រ (ក្រដាសកម្តៅ thermal paper) ឬកំទេចឈើដែលបានឆ្លងកាត់ការគាបគីមី។ សារធាតុគីមី និងលោហៈធ្ងន់នឹងសម្លាប់បាក់តេរីក្នុងដីរបស់អ្នក និងបំផ្លាញគុណភាពជីកំប៉ុស។</p>
+</div>
+<!-- TAB 4: HOW TO MIX SOIL -->
+<div id="tab-HOW-TO-MIX-SOIL" class="tab-content">
+     
+    <!-- SECTION 01: LEAFY GREENS & VEGETABLES -->
+    <div class="component-item lang-en"><span>01.</span> Leafy Greens & Vegetables (The Heavy Feeders)</div>
+    <div class="component-item lang-km" style="display: none;"><span>01.</span> បន្លែស្លឹក និងដំណាំបន្លែ (រុក្ខជាតិត្រូវការសារធាតុចិញ្ចឹមខ្លាំង)</div>
+    
+    <p class="lang-en">•  <strong>Examples:</strong> Lettuce, cabbage, tomatoes, chili peppers, and basil.</p>
+    <p class="lang-km" style="display: none;">•  <strong>ឧទាហរណ៍៖</strong> សាឡាត់ ស្ពៃក្តោប ប៉េងប៉ោះ ម្ទេស និងជីនាងវង។</p>
+    
+    <p class="lang-en">•  <strong>The Mix:</strong> Use a 1:2 Ratio (1 part raw compost + 2 parts dirt).</p>
+    <p class="lang-km" style="display: none;">•  <strong>ល្បាយ៖</strong> ប្រើសមាមាត្រ ១:២ (ជីកំប៉ុសឆៅ ១ភាគ + ដី ២ភាគ)។</p>
+    
+    <p class="lang-en">•  <strong>Why:</strong> Vegetables require large amounts of nitrogen and nutrients to grow leaves and produce fruit. Because they consume nutrients rapidly, they can handle a slightly richer, more concentrated soil blend.</p>
+    <p class="lang-km" style="display: none;">•  <strong>មូលហេតុ៖</strong> ដំណាំបន្លែត្រូវការជាតិអាសូត និងសារធាតុចិញ្ចឹមច្រើន ដើម្បីលូតលាស់ស្លឹក និងបង្កើតផ្លែ។ ដោយសារពួកវាស្រូបយកសារធាតុចិញ្ចឹមបានលឿន ពួកវាអាចលូតលាស់បានល្អក្នុងល្បាយដីដែលមានជាតិជីរាងដិត ឬកំហាប់ខ្ពស់បន្តិច។</p>
+  
+    <!-- SECTION 02: INDOOR POTTED PLANTS & FLOWERS -->
+    <div class="component-item lang-en"><span>02.</span> Indoor Potted Plants & Flowers (The Sensitive Roots)</div>
+    <div class="component-item lang-km" style="display: none;"><span>02.</span> ផ្កា និងរុក្ខជាតិដាំក្នុងថូក្នុងផ្ទះ (ឫសងាយរងគ្រោះ)</div>
+    
+    <p class="lang-en">•  <strong>Examples:</strong> Peace lilies, monsteras, orchids, marigolds, and roses.</p>
+    <p class="lang-km" style="display: none;">•  <strong>ឧទាហរណ៍៖</strong> ផ្កាអ័រគីដេ (ស្បៃរឿង) ដើមម៉ុងស្ទេរ៉ា ផ្កាស្បៃរឿង និងផ្កាកុលាប។</p>
+    
+    <p class="lang-en">•  <strong>The Mix:</strong> Use a 1:4 Ratio (1 part raw compost + 4 parts dirt).</p>
+    <p class="lang-km" style="display: none;">•  <strong>ល្បាយ៖</strong> ប្រើសមាមាត្រ ១:៤ (ជីកំប៉ុសឆៅ ១ភាគ + ដី ៤ភាគ)។</p>
+    
+    <p class="lang-en">•  <strong>Why:</strong> Potted plants have confined root systems with nowhere to hide if the soil is too strong. Diluting it further ensures delicate roots don't experience "nutrient burn."</p>
+    <p class="lang-km" style="display: none;">•  <strong>មូលហេតុ៖</strong> រុក្ខជាតិក្នុងថមានប្រព័ន្ធឫសកម្រិតក្នុងលំហតូច ដែលមិនអាចគេចផុតបានឡើយ ប្រសិនបើដីនោះមានជាតិជីខ្លាំងពេក។ ការលាយពង្រាវដីបន្ថែម ជួយធានាថាឫសដ៏ទន់ខ្សោយរបស់វាមិនរងការ "រលាកដោយសារធាតុចិញ្ចឹម" (nutrient burn) ឡើយ។</p>
+  
+    <!-- SECTION 03: CACTI & SUCCULENTS -->
+    <div class="component-item lang-en"><span>03.</span> Cacti & Succulents (The Low-Nutrient Plants)</div>
+    <div class="component-item lang-km" style="display: none;"><span>03.</span> ដើមដំបងយក្ស និងរុក្ខជាតិសាច់ដុំ (រុក្ខជាតិត្រូវការសារធាតុចិញ្ចឹមតិច)</div>
+    
+    <p class="lang-en">•  <strong>Examples:</strong> Aloe vera, desert cacti, and jade plants.</p>
+    <p class="lang-km" style="display: none;">•  <strong>ឧទាហរណ៍៖</strong> ប្រទាលកន្ទុយក្រពើ ដើមដំបងយក្សវាលខ្សាច់ និងដើមចាដេ (Jade plant)។</p>
+    
+    <p class="lang-en">•  <strong>The Mix:</strong> Use a 1:5 Ratio mixed with sand (1 part raw compost + 4 parts dirt + 1 part coarse sand).</p>
+    <p class="lang-km" style="display: none;">•  <strong>ល្បាយ៖</strong> ប្រើសមាមាត្រ ១:៥ លាយជាមួយខ្សាច់ (ជីកំប៉ុសឆៅ ១ភាគ + ដី ៤ភាគ + ខ្សាច់គ្រើម ១ភាគ)។</p>
+    
+    <p class="lang-en">•  <strong>Why:</strong> Succulents thrive in poor, sandy, highly draining soils. Giving them too much rich compost will actually make them weak and watery. The sand keeps the texture loose and gravelly.</p>
+    <p class="lang-km" style="display: none;">•  <strong>មូលហេតុ៖</strong> រុក្ខជាតិសាច់ដុំលូតលាស់បានល្អក្នុងដីខ្សាច់ ខ្សត់ជី និងដីស្រទាប់ខ្សាច់ដែលងាយស្រកទឹក។ ការផ្តល់ជីកំប៉ុសដែលសម្បូរជាតិជីខ្លាំងពេក នឹងធ្វើឱ្យពួកវាទន់ជ្រាយ និងរលួយទឹកទៅវិញទេ។ ខ្សាច់ជួយរក្សាទ្រង់ទ្រាយដីឱ្យធូរ និងមានលក្ខណៈដូចគ្រួស។</p>
+       
+    <!-- SECTION 04: FOR BIG TREE -->
+    <div class="component-item lang-en"><span>04.</span> FOR BIG TREE</div>
+    <div class="component-item lang-km" style="display: none;"><span>04.</span> សម្រាប់ដើមឈើធំៗ</div>
+    
+    <p class="lang-en">1. Find the Drip Line: Walk out to the edge of the tree where the furthest leaves stick out. The tips of the roots underground are located right below the furthest branches (this is called the drip line). Never dig or pour compost right against the main tree trunk.</p>
+    <p class="lang-km" style="display: none;">១. ស្វែងរកខ្សែតំណក់ទឹក (Drip Line)៖ ដើរទៅកាន់គែមនៃដើមឈើដែលមានស្លឹកលាតសន្ធឹងចេញទៅឆ្ងាយបំផុត។ ចុងឫសនៅក្រោមដី គឺស្ថិតនៅចំពីក្រោមមែកឈើដែលនៅឆ្ងាយបំផុតនោះឯង (ហៅថា ខ្សែតំណក់ទឹក)។ ហាមដាច់ខាតការជីក ឬចាក់ជីកំប៉ុសក្បែរគល់ឈើផ្ទាល់តែម្តង។</p>
+    
+    <p class="lang-en">2. Dig a Shallow Ring: Dig a small, circular trench (about 5 to 10 cm deep) all the way around the tree along that drip line.</p>
+    <p class="lang-km" style="display: none;">២. ជីករង្វង់រាក់ៗ៖ ជីករណ្តៅរង្វង់តូចមួយ (ជម្រៅប្រហែល ៥ ទៅ ១០ សង់ទីម៉ែត្រ) ព័ទ្ធជុំវិញដើមឈើ តាមបណ្តោយខ្សែតំណក់ទឹកនោះ។</p>
+    
+    <p class="lang-en">3. Pour the Raw Compost: Pour the raw 3-day pre-compost directly into that shallow trench.</p>
+    <p class="lang-km" style="display: none;">៣. ចាក់ជីកំប៉ុសឆៅ៖ ចាក់ជីកំប៉ុសឆៅដែលបានមកពីការកិនកែច្នៃរយៈពេល ៣ថ្ងៃ ទៅក្នុងរណ្តៅរាក់ៗនោះដោយផ្ទាល់។</p>
+    
+    <p class="lang-en">4. Bury and Water: Cover the compost back up with the dirt you dug out and water it thoroughly.</p>
+    <p class="lang-km" style="display: none;">៤. លុបដី និងស្រោចទឹក៖ លុបជីកំប៉ុសវិញជាមួយនឹងដីដែលអ្នកបានជីកចេញមក បន្ទាប់មកស្រោចទឹកឱ្យបានជោកជន់។</p>
+</div>
+
+
+
+<script type="text/javascript">
+function switchLanguage(lang) {
+  const enElements = document.querySelectorAll('.lang-en');
+  const kmElements = document.querySelectorAll('.lang-km');
+  const btnEn = document.getElementById('btn-en');
+  const btnKm = document.getElementById('btn-km');
+
+  if (lang === 'km') {
+    // Hide English content, Show Khmer content
+    enElements.forEach(el => el.style.display = 'none');
+    kmElements.forEach(el => el.style.display = 'block');
+    // Highlight the Khmer button layout
+    btnKm.style.backgroundColor = '#9b5de5';
+    btnKm.style.color = 'white';
+    btnEn.style.backgroundColor = '#2a2447';
+    btnEn.style.color = '#a0a0b8';
+  } else {
+    // Hide Khmer content, Show English content
+    enElements.forEach(el => el.style.display = 'block');
+    kmElements.forEach(el => el.style.display = 'none');
+    // Highlight the English button layout
+    btnEn.style.backgroundColor = '#9b5de5';
+    btnEn.style.color = 'white';
+    btnKm.style.backgroundColor = '#2a2447';
+    btnKm.style.color = '#a0a0b8';
+  }
+}
+  
+</script>
+    
+<script type="text/javascript">
+function openTab(event, tabId) {
+    // 1. Hide all tab content sections completely
+    var tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(function(content) {
+        content.classList.remove('active');
+        content.style.display = 'none';
+    });
+
+    // 2. Remove the active color from all tab buttons
+    var tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(function(button) {
+        button.classList.remove('active');
+    });
+
+    // 3. Find the target clicked tab content panel
+    var activeContent = document.getElementById(tabId);
+    if (activeContent) {
+        activeContent.classList.add('active');
+        activeContent.style.display = 'block';
+    }
+
+    // 4. Mark the specific clicked layout button as active
+    // If it's a language paired button, active both the EN and KH button versions
+    if (event && event.currentTarget) {
+        var clickedBtn = event.currentTarget;
+        clickedBtn.classList.add('active');
+        
+        // Match paired translation sibling button if it exists
+        var textMatch = clickedBtn.innerText.trim();
+        var allButtons = document.querySelectorAll('.tab-button');
+        allButtons.forEach(function(btn) {
+            if (btn.getAttribute('onclick') === clickedBtn.getAttribute('onclick')) {
+                btn.classList.add('active');
+            }
+        });
+    }
+}
+
+// Initialize layout states on first page load
+document.addEventListener('DOMContentLoaded', function() {
+    openTab(null, 'tab-WHAT-IS-TCM');
+});
+</script>
+      </body>
+</html>
